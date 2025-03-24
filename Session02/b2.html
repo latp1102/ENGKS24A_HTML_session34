@@ -36,6 +36,10 @@
     .action-btn {
       margin-right: 5px;
     }
+    .button-btn {
+      background-color:  rgb(100, 183, 250);
+      border-radius: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -48,7 +52,7 @@
       <option value="Completed">Completed</option>
     </select>
     <input type="text" id="assignedTo" placeholder="Username">
-    <button onclick="addTask()">Submit</button>
+    <button class="button-btn" onclick="addTask()">Submit</button>
     <table>
       <thead>
         <tr>
