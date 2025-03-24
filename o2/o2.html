@@ -1,0 +1,128 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Browser localStorage</h1>
+    <script>
+        console.log(sessionStorage);
+        // Get lấy đữ liệu nằm trong session Storage
+        console.log(sessionStorage.email);
+        console.log(sessionStorage.password);
+        // getItem()
+        console.log(sessionStorage.getItem("email"));
+        console.log(email);
+        // CREAT THÊM MỚI VÀO TRONG
+        console.log(sessionStorage.username = "mck123");
+        
+        // setItem();
+        console.log(sessionStorage.setItem("dog", "31/1/1995"));
+        // upate cập nhật lại giá trị
+        console.log(sessionStorage.dob = "31/1/1995");
+        console.log(sessionStorage.dob = "30/2/1996");
+        //DDELETE
+        delete sessionStorage.dob;
+        sessionStorage.removeItem("username");
+
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách nhân viên Rikkei</title>
+    <style>
+        table, th, td {
+            border: 1px solid rgb(238, 231, 231);
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th {
+            background-color: rgb(209, 205, 205);
+        }
+        input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Danh sách nhân viên Rikkei</h2>
+    <label>tên nhân viên <input type="text" id="nameInput"></label>
+    <label>chức vụ <input type="text" id="positionInput"></label>
+    <button onclick="addEmployee()">thêm nhân viên</button>
+
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Chức vụ</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        let employees = [];
+        window.onload = function() {
+            const storedData = localStorage.getItem('employees');
+            if (storedData) {
+                employees = JSON.parse(storedData);
+            } else {
+                employees = [
+                    { 
+                        name: 'Nguyễn Văn A', 
+                        position: 'Developer' 
+                    },
+                    { 
+                        name: 'Trần Thị B', 
+                        position: 'Designer' 
+                    },
+                    { 
+                        name: 'Phạm Văn C', 
+                        position: 'Project Manager' 
+                    }
+                ];
+                localStorage.setItem('employees', JSON.stringify(employees));
+            }
+            renderTable();
+        };
+
+        function renderTable() {
+            const tableBody = document.querySelector('#employeeTable tbody');
+            tableBody.innerHTML = '';
+            employees.forEach((employee, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.position}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function addEmployee() {
+            const name = document.getElementById('nameInput').value.trim();
+            const position = document.getElementById('positionInput').value.trim();
+
+            if (name === '' || position === '') {
+                alert('Vui lòng nhập đầy đủ thông tin');
+                return;
+            }
+
+            employees.push({ name, position });
+            localStorage.setItem('employees', JSON.stringify(employees));
+            renderTable();
+
+            document.getElementById('nameInput').value = '';
+            document.getElementById('positionInput').value = '';
+        }
+    </script>
+
+</body>
+</html>
